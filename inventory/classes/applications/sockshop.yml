@@ -1,0 +1,42 @@
+classes:
+  - components.sockshop.carts-db
+  - components.sockshop.carts
+  - components.sockshop.catalogue-db
+  - components.sockshop.catalogue
+  - components.sockshop.front-end
+  - components.sockshop.orders-db
+  - components.sockshop.orders
+  - components.sockshop.payment
+  - components.sockshop.queue-master
+  - components.sockshop.rabbitmq
+  - components.sockshop.session-db
+  - components.sockshop.shipping
+  - components.sockshop.user-db
+  - components.sockshop.user
+
+parameters:
+  applications:
+    sockshop:
+      component_defaults:
+        replicas: 1
+        labels:
+          "app.kubernetes.io/part-of": "sock-shop"
+        security_context:
+          readOnlyRootFilesystem: true
+
+  kapitan:
+    compile:
+      - output_path: manifests
+        input_type: kadet
+        output_type: yml
+        input_paths:
+          - components/generators/kubernetes
+    
+  generators:
+    manifest:
+      default_config:
+        type: deployment
+        service_account:
+          create: false
+        annotations:
+          "manifests.kapicorp.com/generated": "true"

@@ -1,0 +1,19 @@
+parameters:
+  components:
+    config:
+      application: metallb
+      namespace: metallb-system
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 172.20.0.10-172.20.0.20

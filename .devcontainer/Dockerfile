@@ -1,9 +1,7 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.155.1/containers/ubuntu/.devcontainer/base.Dockerfile
 
-# [Choice] Ubuntu version: bionic, focal
 FROM ubuntu:20.04
 LABEL maintainer="chris@weave.works"
-
 
 # Options
 ARG INSTALL_ZSH="true"
@@ -16,12 +14,13 @@ ARG USERNAME=kapitan
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 # Customisations
-ARG KIND_VERSION=0.9.0
+ARG KIND_VERSION=0.10.0
 ARG GH_VERSION=1.4.0
 # Kapitan Jsonnet broken on 0.29.{3,4} https://github.com/kapicorp/kapitan/issues/641
 ARG KAP_VERSION=0.29.2
 ARG YTT_VERSION=0.31.0
 ARG CONFTEST_VERSION=0.21.0
+ARG KUBEVAL_VERSION=0.15.0
 
 # Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
 COPY library-scripts/*.sh /tmp/library-scripts/
@@ -66,6 +65,11 @@ RUN curl -sSL -o /usr/local/bin/ytt  "https://github.com/vmware-tanzu/carvel-ytt
 RUN curl -sSL -o conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz "https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz" \
     && tar xzf conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz \
     && mv conftest /usr/local/bin
+
+#  install kubeeval
+RUN curl -sSL -o  kubeval-linux-amd64.tar.gz "https://github.com/instrumenta/kubeval/releases/download/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz" \
+  && tar xzf kubeval-linux-amd64.tar.gz \
+  && mv kubeval /usr/local/bin
 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]

@@ -1,0 +1,8 @@
+classes:
+  - common
+  - cluster.kind_cluster
+  - applications.sockshop
+
+parameters:
+  target_name: dev-cluster
+  image: kindest/node:v1.20.2@sha256:8f7ea6e7642c0da54f04a7ee10431549c0257315b3a634f6ef2fecaaedb19bab

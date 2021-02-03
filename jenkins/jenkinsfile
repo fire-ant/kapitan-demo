@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    environment {
+        PATH="/usr/bin:$PATH"
+        GIT_PYTHON_REFRESH="quiet"
+      }
+    stages {
+        stage('ensure ci tooling is installed') {
+            steps {
+                sh '''
+                    which conftest
+                '''
+            }
+        }
+        stage('run kapitan compile') {
+            steps {
+                dir('/kapitan-demo') {
+                    sh '''
+                        kapitan validate
+                    '''
+                }
+            }
+        }
+    }
+}

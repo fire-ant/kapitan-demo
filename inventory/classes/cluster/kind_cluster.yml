@@ -1,0 +1,28 @@
+parameters:
+  apiversion: kind.x-k8s.io/v1alpha4
+  network: 172.20.0.0/16
+
+  kapitan:
+    compile:
+      - output_path: jsonnet
+        input_type: jsonnet
+        output_type: yaml
+        input_paths:
+          - components/kind/kind.jsonnet
+
+      - output_path: scripts
+        input_type: jinja2
+        input_paths:
+          - templates/scripts/kind
+
+      # - output_path: .
+      #   output_type: yaml
+      #   input_type: jinja2
+      #   input_paths:
+      #     - templates/docs
+
+      # - output_path: kadet_output
+      #   input_type: kadet
+      #   output_type: yaml
+      #   input_paths:
+      #     - components/other_component/

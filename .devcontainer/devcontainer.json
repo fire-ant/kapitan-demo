@@ -3,7 +3,6 @@
 {
 	"name": "Ubuntu",
 	"runArgs": ["--init"],
-	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind" ],
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "scratch",
 	"workspaceFolder": "/kapitan-demo",
@@ -35,4 +34,8 @@
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "kapitan"
+	// "remoteEnv": {
+	// 	"LCLPWD": "${env:PWD}"
+	// // }
+	
 }
